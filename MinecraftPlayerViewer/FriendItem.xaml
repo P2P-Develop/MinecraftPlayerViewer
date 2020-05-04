@@ -1,12 +1,75 @@
-﻿<UserControl x:Class="MinecraftPlayerViewer.FriendItems"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MinecraftPlayerViewer"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="MinecraftPlayerViewer.FriendItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://schemes.grabacr.net/winfx/2014/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MinecraftPlayerViewer"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
+    Width="260"
+    Height="Auto"
+    Margin="5"
+    d:DesignHeight="200"
+    d:DesignWidth="300"
+    FontFamily="Yu Gothic UI, Segoe UI"
+    Foreground="White"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid>
-        
+        <Border
+            Background="Black"
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            CornerRadius="10"
+            Opacity="0.25" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Margin="5,5,40,4.333"
+                Orientation="Horizontal">
+                <Image
+                    x:Name="imgPlayer"
+                    Width="25"
+                    Height="25"
+                    Source=".\Resources\ExamplePlayerIcon.png" />
+                <StackPanel Margin="5,5,5,0" VerticalAlignment="Center">
+                    <TextBlock
+                        x:Name="tbPlayerName"
+                        FontSize="13"
+                        Text="Example" />
+                    <TextBlock
+                        x:Name="tbPlayerUUID"
+                        FontSize="9"
+                        Foreground="{StaticResource ForegroundBrushKey}"
+                        Text="Unknown" />
+                </StackPanel>
+            </StackPanel>
+
+            <Expander
+                x:Name="groupOldName"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" />
+
+            <StackPanel
+                x:Name="stOldNames"
+                Grid.Row="1"
+                Margin="10"
+                Visibility="{Binding Path=IsExpanded, ElementName=groupOldName, Converter={StaticResource BoolVisibilityConverter}}">
+                <TextBlock Text="Im_Example" />
+                <TextBlock Text="[YT]Example" />
+                <TextBlock Text="You_are_Example" />
+                <TextBlock Text="EX_3AM_PLE" />
+                <TextBlock Text="MHF_Example" />
+                <TextBlock Text="Not_Steve" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

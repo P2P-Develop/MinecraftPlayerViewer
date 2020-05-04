@@ -12,8 +12,11 @@
     Title="PlayerViewer"
     Width="300"
     Height="500"
+    MinWidth="300"
     Background="{StaticResource Background}"
     FontFamily="Yu Gothic UI, Segoe UI"
+    Foreground="{StaticResource Foreground}"
+    SnapsToDevicePixels="True"
     TextOptions.TextFormattingMode="Display"
     UseLayoutRounding="True"
     mc:Ignorable="d">
@@ -22,6 +25,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <!--#region Title Bar-->
 
         <Border Grid.Row="0" controls:MetroWindow.IsCaptionBar="True">
             <Grid>
@@ -40,7 +45,7 @@
                     Grid.Column="1"
                     Margin="3,0,0,0"
                     VerticalAlignment="Center"
-                    FontFamily="Segoe UI Light"
+                    FontFamily="Segoe UI"
                     FontSize="12"
                     Foreground="{DynamicResource ForegroundBrushKey}"
                     Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=Title}"
@@ -52,28 +57,61 @@
             </Grid>
         </Border>
 
+        <!--#endregion-->
+
+        <!--#region Main Contents-->
+
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <!--#region Player Box-->
-            <TextBox
-                Name="tbPlayer"
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="3"
-                FontSize="14" />
-            <Button
-                Name="btnRun"
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="3"
-                Content="実行" />
+
+            <!--#region Player Search Box-->
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Name="tbPlayer"
+                    Grid.Column="0"
+                    Margin="5,5,0,5"
+                    FontSize="14"
+                    Style="{StaticResource SearchTextBox}" />
+                <Button
+                    Name="btnRun"
+                    Grid.Column="1"
+                    Width="30"
+                    Margin="0,5,5,5"
+                    Click="BtnRun_Click"
+                    Content="実行" />
+            </Grid>
+
+            <!--#endregion-->
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Name="stItems" />
+            </ScrollViewer>
+
+            <StackPanel
+                x:Name="spinner"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <controls:ProgressRing />
+                <TextBlock
+                    Margin="7"
+                    FontSize="14"
+                    Text="Loading..." />
+            </StackPanel>
+
         </Grid>
+
+        <!--#endregion-->
+
     </Grid>
 </controls:MetroWindow>
